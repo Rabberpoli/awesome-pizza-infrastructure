@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: awesome-pizza-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - client
+      - service
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  client:
+    image: gruberto/awesome-pizza-client:1.0.2
+    container_name: awesome-pizza-client
+    environment:
+      - VITE_API_BASE_URL=/api
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  service:
+    image: gruberto/awesome-pizza-service:latest
+    container_name: awesome-pizza-service
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
