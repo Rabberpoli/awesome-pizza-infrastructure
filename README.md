@@ -6,6 +6,7 @@ In this repository we can find every necessary configuration needed to create th
 ## Technology stack:
 The following technologies were used:
 * **ReactJS 19** (with TS extension) + **Vite** (for bundling)
+* **Nginx** as a reverse proxy
 * **Java 17** + **Springboot 3** + **Maven** (for dependencies management and build) + **H2** (embedded DB)
 * **Redis** (queue structure)
 * **SockJS** (websocket infrastructure for real-time notifications)
